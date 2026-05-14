@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주차 안내 - 안전 연락 서비스</title>
+    <style>
+        :root {
+            --kakao-yellow: #FEE500;
+            --kakao-brown: #3A1D1D;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 30px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .icon-area {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .car-number {
+            display: inline-block;
+            background: #f0f2f5;
+            padding: 5px 15px;
+            border-radius: 8px;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            word-break: keep-all;
+        }
+
+        .btn-kakao {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--kakao-yellow);
+            color: var(--kakao-brown);
+            text-decoration: none;
+            padding: 18px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(254, 229, 0, 0.3);
+        }
+
+        .btn-kakao:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 6px rgba(254, 229, 0, 0.2);
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Kakao Icon Simple SVG */
+        .kakao-icon {
+            width: 24px;
+            height: 24px;
+            fill: var(--kakao-brown);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon-area">🚗</div>
+        <h1>주차 안내</h1>
+        <div class="car-number">내 차량 번호: [차량번호를 입력하세요]</div>
+        <p>차량 이동이 필요하신가요?<br>아래 버튼을 클릭하면 차주와 안전하게 카카오톡으로 연결됩니다.</p>
+        
+        <a href="https://open.kakao.com/o/YOUR_LINK_HERE" class="btn-kakao" id="contactBtn">
+            <svg class="kakao-icon" viewBox="0 0 24 24">
+                <path d="M12 3C7.029 3 3 6.129 3 10c0 2.426 1.582 4.555 4.029 5.862l-.803 2.947c-.103.379.117.766.491.86.136.034.276.014.397-.057l3.472-2.302c.459.061.93.091 1.414.091 4.971 0 9-3.129 9-7s-4.029-7-9-7z"/>
+            </svg>
+            카카오톡 연락하기
+        </a>
+
+        <div class="footer">
+            개인정보 보호를 위해 안심번호 대신<br>카카오톡 오픈채팅을 이용합니다.
+        </div>
+    </div>
+
+    <script>
+        // 사용자 편의를 위해 나중에 URL 파라미터로 차량번호나 링크를 받을 수 있게 확장 가능합니다.
+        const urlParams = new URLSearchParams(window.location.search);
+        const carNum = urlParams.get('car');
+        const link = urlParams.get('link');
+
+        if (carNum) {
+            document.querySelector('.car-number').textContent = '내 차량 번호: ' + carNum;
+        }
+        if (link) {
+            document.getElementById('contactBtn').href = 'https://open.kakao.com/o/' + link;
+        }
+    </script>
+</body>
+</html>
