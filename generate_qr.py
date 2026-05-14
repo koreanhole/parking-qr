@@ -39,19 +39,21 @@ try:
         # 폰트 로드 실패 시 기본 폰트
         font = ImageFont.load_default()
         
-    text = "휴대폰 카메라로 QR 코드를 스캔하세요"
+    text = "차주와 연결하려면 QR코드를\n휴대폰 카메라로 스캔하세요."
     
     # 텍스트 박스 크기 계산 (Pillow 버전에 따라 getsize 또는 textbbox 사용)
     try:
-        left, top, right, bottom = draw.textbbox((0, 0), text, font=font)
+        # 멀티라인 텍스트 지원을 위해 draw.multiline_textbbox 사용
+        left, top, right, bottom = draw.multiline_textbbox((0, 0), text, font=font, align="center")
         text_width = right - left
     except AttributeError:
+        # 구버전 대응
         text_width, _ = draw.textsize(text, font=font)
         
     text_x = (canvas_size - text_width) // 2
-    text_y = qr_y + qr_img.height + 40
+    text_y = qr_y + qr_img.height + 30
     
-    draw.text((text_x, text_y), text, fill="black", font=font)
+    draw.multiline_text((text_x, text_y), text, fill="black", font=font, align="center", spacing=10)
     
     # 5. 저장
     canvas.save(output_path)
